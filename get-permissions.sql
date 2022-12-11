@@ -39,5 +39,5 @@ SELECT pg_get_userbyid(b.nspowner)::text AS objowner,
 		INNER JOIN pg_catalog.pg_namespace B ON b.oid = ns.oid AND NS.n <= array_upper(b.nspacl,1)
 )
 
-SELECT * FROM objprivs
+SELECT  objowner,schemaname,objname,objtype,aclstring FROM objprivs
 WHERE schemaname != 'pg_catalog' and schemaname != 'information_schema' order by schemaname,objname,objtype asc;
