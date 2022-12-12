@@ -39,4 +39,4 @@ SELECT pg_get_userbyid(b.nspowner)::text AS objowner,
 		INNER JOIN pg_catalog.pg_namespace B ON b.oid = ns.oid AND NS.n <= array_upper(b.nspacl,1)
 )
 
-SELECT * FROM objprivs where objowner!='rdsdb' order by schemaname,objname,objtype asc;
+SELECT objowner, schemaname, objname, objtype, substring(aclstring from '(.*)=') as grantee, substring(aclstring from '=(.*)/') as granted, substring(aclstring from '/(.*)') as grantor  ,grantseq,colname FROM objprivs where objowner!='rdsdb' order by schemaname,objname,objtype asc;
